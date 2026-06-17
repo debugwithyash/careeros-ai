@@ -2,20 +2,40 @@ import { useState } from "react";
 
 function JobMatcher() {
   const [jobDesc, setJobDesc] = useState("");
-  const [result, setResult] = useState("");
+  const [score, setScore] = useState(null);
+  const [missing, setMissing] = useState([]);
 
   const matchJob = () => {
-    setResult(`
-Match Score: 85%
+    const savedSkills =
+      localStorage.getItem("userSkills") || "";
 
-Missing Skills:
-• TypeScript
-• Next.js
-• GitHub Actions
+    const userSkills = savedSkills
+      .toLowerCase()
+      .split(",")
+      .map((skill) => skill.trim())
+      .filter((skill) => skill !== "");
 
-Recommended Next Step:
-Learn TypeScript and Next.js
-    `);
+    console.log("Saved Skills:", savedSkills);
+    console.log("User Skills:", userSkills);
+    console.log("Job Desc:", jobDesc);
+
+    let matched = 0;
+    const missingSkills = [];
+
+    userSkills.forEach((skill) => {
+      if (jobDesc.toLowerCase().includes(skill)) {
+        matched++;
+      } else {
+        missingSkills.push(skill);
+      }
+    });
+
+    const result = Math.round(
+      (matched / userSkills.length) * 100
+    );
+
+    setScore(result);
+    setMissing(missingSkills);
   };
 
   return (
@@ -39,11 +59,31 @@ Learn TypeScript and Next.js
         Match Job
       </button>
 
-      <pre className="mt-4 whitespace-pre-wrap">
-        {result}
-      </pre>
+      {score !== null && (
+        <div className="mt-4">
+          <h4 className="text-xl font-bold">
+            Match Score: {score}%
+          </h4>
+
+          {missing.length > 0 && (
+            <div className="mt-3">
+              <h4 className="font-bold">
+                Missing Skills:
+              </h4>
+
+              <ul>
+                {missing.map((skill, index) => (
+                  <li key={index}>
+                    ❌ {skill}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
 
-export default JobMatcher;
+export default JobMatcher;             

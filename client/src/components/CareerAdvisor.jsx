@@ -4,22 +4,77 @@ function CareerAdvisor() {
   const [advice, setAdvice] = useState("");
 
   const generateAdvice = () => {
-    const goal = localStorage.getItem("careerGoal") || "Developer";
+    const goal =
+      localStorage.getItem("careerGoal") || "";
 
-    setAdvice(`
-Career Goal: ${goal}
+    const skills =
+      localStorage.getItem("userSkills") || "";
 
-Recommended Learning Path:
-• React
+    let roadmap = "";
+
+    if (goal.toLowerCase().includes("frontend")) {
+      roadmap = `
+🚀 Frontend Developer Roadmap
+
+Current Skills:
+${skills}
+
+Next Skills To Learn:
 • TypeScript
 • Next.js
+• GitHub
+• APIs
 
-Suggested Project:
-Build a SaaS Dashboard
+Projects To Build:
+1. Portfolio Website
+2. Expense Tracker
+3. Job Portal
+4. AI Dashboard
+
+Internship Target:
+Frontend Developer Intern
 
 Estimated Time:
-3 Months
-    `);
+2-3 Months
+`;
+    } else if (goal.toLowerCase().includes("ai")) {
+      roadmap = `
+🤖 AI Engineer Roadmap
+
+Current Skills:
+${skills}
+
+Next Skills To Learn:
+• Python
+• NumPy
+• Pandas
+• Machine Learning
+• Deep Learning
+
+Projects To Build:
+1. Resume Analyzer
+2. Chatbot
+3. Career Recommendation System
+
+Internship Target:
+AI/ML Intern
+
+Estimated Time:
+3-4 Months
+`;
+    } else {
+      roadmap = `
+🎯 Career Goal:
+${goal}
+
+Current Skills:
+${skills}
+
+Keep learning and building projects.
+`;
+    }
+
+    setAdvice(roadmap);
   };
 
   return (
@@ -30,16 +85,18 @@ Estimated Time:
 
       <button
         onClick={generateAdvice}
-        className="bg-indigo-600 px-4 py-2 rounded"
+        className="bg-cyan-600 px-4 py-2 rounded"
       >
         Generate Advice
       </button>
 
-      <pre className="mt-4 whitespace-pre-wrap">
-        {advice}
-      </pre>
+      {advice && (
+        <pre className="mt-4 whitespace-pre-wrap">
+          {advice}
+        </pre>
+      )}
     </div>
   );
 }
 
-export default CareerAdvisor;
+export default CareerAdvisor;      

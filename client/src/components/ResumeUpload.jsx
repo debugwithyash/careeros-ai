@@ -4,14 +4,24 @@ function ResumeUpload() {
   const [result, setResult] = useState("");
 
   const analyzeResume = () => {
+    const extractedSkills =
+      "React, JavaScript, HTML, CSS";
+
+    localStorage.setItem(
+      "userSkills",
+      extractedSkills
+    );
+
     setResult(`
-Resume Score: 82/100
+Resume Analysis Complete
 
 Skills Found:
+• React
+• JavaScript
 • HTML
 • CSS
-• JavaScript
-• React
+
+Resume Score: 80%
     `);
   };
 
@@ -30,11 +40,13 @@ Skills Found:
         Analyze Resume
       </button>
 
-      <pre className="mt-4 whitespace-pre-wrap">
-        {result}
-      </pre>
+      {result && (
+        <pre className="mt-4 whitespace-pre-wrap">
+          {result}
+        </pre>
+      )}
     </div>
   );
 }
 
-export default ResumeUpload;
+export default ResumeUpload; 

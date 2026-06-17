@@ -4,7 +4,7 @@ function SkillsMemory() {
   const [skills, setSkills] = useState("");
 
   const saveSkills = () => {
-    localStorage.setItem("skills", skills);
+    localStorage.setItem("userSkills", skills);
     alert("Skills Saved!");
   };
 
