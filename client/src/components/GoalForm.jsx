@@ -9,7 +9,10 @@ function GoalForm() {
   };
 
   return (
-    <div className="bg-slate-800 p-6 rounded-xl mb-6">
+  <div
+    id="career-goal"
+    className="bg-slate-800 p-6 rounded-xl mb-6"
+  >
       <h3 className="text-2xl font-bold mb-3">
         🎯 Career Goal
       </h3>

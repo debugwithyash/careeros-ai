@@ -7,9 +7,11 @@ function SkillsMemory() {
     localStorage.setItem("userSkills", skills);
     alert("Skills Saved!");
   };
-
-  return (
-    <div className="bg-slate-800 p-6 rounded-xl mb-6">
+return (
+  <div
+  id="skills-memory"
+  className="bg-slate-800 p-6 rounded-xl mb-6"
+>
       <h3 className="text-2xl font-bold mb-3">
         🛠 Skills Memory
       </h3>

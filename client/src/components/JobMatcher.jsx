@@ -15,10 +15,6 @@ function JobMatcher() {
       .map((skill) => skill.trim())
       .filter((skill) => skill !== "");
 
-    console.log("Saved Skills:", savedSkills);
-    console.log("User Skills:", userSkills);
-    console.log("Job Desc:", jobDesc);
-
     let matched = 0;
     const missingSkills = [];
 
@@ -30,16 +26,22 @@ function JobMatcher() {
       }
     });
 
-    const result = Math.round(
-      (matched / userSkills.length) * 100
-    );
+    const result =
+      userSkills.length > 0
+        ? Math.round(
+            (matched / userSkills.length) * 100
+          )
+        : 0;
 
     setScore(result);
     setMissing(missingSkills);
   };
 
   return (
-    <div className="bg-slate-800 p-6 rounded-xl mb-6">
+   <div
+  id="job-matcher"
+  className="bg-slate-800 p-6 rounded-xl mb-6"
+>
       <h3 className="text-2xl font-bold mb-3">
         💼 Job Matcher
       </h3>
@@ -66,19 +68,33 @@ function JobMatcher() {
           </h4>
 
           {missing.length > 0 && (
-            <div className="mt-3">
-              <h4 className="font-bold">
-                Missing Skills:
-              </h4>
+            <>
+              <div className="mt-3">
+                <h4 className="font-bold">
+                  Missing Skills:
+                </h4>
 
-              <ul>
-                {missing.map((skill, index) => (
-                  <li key={index}>
-                    ❌ {skill}
-                  </li>
-                ))}
-              </ul>
-            </div>
+                <ul>
+                  {missing.map((skill, index) => (
+                    <li key={index}>
+                      ❌ {skill}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-4 bg-slate-900 p-3 rounded-lg">
+                <h4 className="font-bold text-green-400">
+                  Recommendation:
+                </h4>
+
+                <p>
+                  Learn{" "}
+                  {missing.join(", ")} to improve
+                  your chances for this role.
+                </p>
+              </div>
+            </>
           )}
         </div>
       )}
@@ -86,4 +102,4 @@ function JobMatcher() {
   );
 }
 
-export default JobMatcher;             
+export default JobMatcher;

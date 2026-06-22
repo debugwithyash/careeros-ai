@@ -3,82 +3,63 @@ import { useState } from "react";
 function CareerAdvisor() {
   const [advice, setAdvice] = useState("");
 
-  const generateAdvice = () => {
+  const generateAdvice = async () => {
+    const apiKey = import.meta.env.VITE_OPENROUTER_API_KEY;
+
     const goal =
-      localStorage.getItem("careerGoal") || "";
+      localStorage.getItem("careerGoal") ||
+      "Frontend Developer";
 
     const skills =
-      localStorage.getItem("userSkills") || "";
+      localStorage.getItem("userSkills") ||
+      "HTML,CSS,JavaScript";
 
-    let roadmap = "";
+    try {
+      setAdvice("Generating AI advice...");
 
-    if (goal.toLowerCase().includes("frontend")) {
-      roadmap = `
-🚀 Frontend Developer Roadmap
+      const response = await fetch(
+        "https://openrouter.ai/api/v1/chat/completions",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+         model: "openai/gpt-oss-20b:free",
+            messages: [
+              {
+                role: "user",
+                content: `My career goal is ${goal}. My current skills are ${skills}. Give me a detailed roadmap, projects to build, internship suggestions, and next skills to learn.`,
+              },
+            ],
+          }),
+        }
+      );
 
-Current Skills:
-${skills}
+      const data = await response.json();
 
-Next Skills To Learn:
-• TypeScript
-• Next.js
-• GitHub
-• APIs
+      console.log(data);
 
-Projects To Build:
-1. Portfolio Website
-2. Expense Tracker
-3. Job Portal
-4. AI Dashboard
-
-Internship Target:
-Frontend Developer Intern
-
-Estimated Time:
-2-3 Months
-`;
-    } else if (goal.toLowerCase().includes("ai")) {
-      roadmap = `
-🤖 AI Engineer Roadmap
-
-Current Skills:
-${skills}
-
-Next Skills To Learn:
-• Python
-• NumPy
-• Pandas
-• Machine Learning
-• Deep Learning
-
-Projects To Build:
-1. Resume Analyzer
-2. Chatbot
-3. Career Recommendation System
-
-Internship Target:
-AI/ML Intern
-
-Estimated Time:
-3-4 Months
-`;
-    } else {
-      roadmap = `
-🎯 Career Goal:
-${goal}
-
-Current Skills:
-${skills}
-
-Keep learning and building projects.
-`;
+      if (data.error) {
+        setAdvice(`ERROR: ${data.error.message}`);
+      } else {
+        setAdvice(
+          data.choices?.[0]?.message?.content ||
+            "No advice generated"
+        );
+      }
+    } catch (error) {
+      console.log(error);
+      setAdvice("Error generating AI advice");
     }
-
-    setAdvice(roadmap);
   };
 
   return (
-    <div className="bg-slate-800 p-6 rounded-xl mb-6">
+    <div
+      id="career-advisor"
+      className="bg-slate-800 p-6 rounded-xl mb-6"
+    >
       <h3 className="text-2xl font-bold mb-3">
         🤖 AI Career Advisor
       </h3>
@@ -99,4 +80,4 @@ Keep learning and building projects.
   );
 }
 
-export default CareerAdvisor;      
+export default CareerAdvisor;
