@@ -45,6 +45,14 @@ useEffect(() => {
         <p className="text-slate-400 mb-6">
   Your Personal AI Career Growth Assistant
 </p>
+<a
+  href="https://github.com/debugwithyash/careeros-ai"
+  target="_blank"
+  rel="noreferrer"
+  className="block mt-4 bg-purple-600 text-center py-2 rounded-lg hover:bg-purple-700"
+>
+  🔗 View GitHub
+</a>
 <ul className="space-y-4">
 
   <li
@@ -114,7 +122,19 @@ useEffect(() => {
         <p className="text-slate-400 mb-8">
   Ready to accelerate your career journey with AI-powered insights.
 </p>
+<div className="mb-8">
+  <span className="bg-purple-600 px-3 py-1 rounded-full text-sm mr-2">
+    React
+  </span>
 
+  <span className="bg-green-600 px-3 py-1 rounded-full text-sm mr-2">
+    AI
+  </span>
+
+  <span className="bg-cyan-600 px-3 py-1 rounded-full text-sm">
+    OpenRouter
+  </span>
+</div>
 <div className="grid grid-cols-5 gap-4 mb-8">
   <div className="bg-slate-800 p-4 rounded-xl">
     <p className="text-sm text-slate-400">Career Goals</p>
@@ -257,7 +277,14 @@ useEffect(() => {
   <p className="text-slate-400">
     chaudharyyash0055@gmail.com
   </p>
-
+<a
+  href="https://www.linkedin.com/in/yash-chaudhary-325814329"
+  target="_blank"
+  rel="noreferrer"
+  className="text-blue-400 block mt-2"
+>
+  💼 LinkedIn Profile
+</a>
   <a
     href="https://digitalheroesco.com"
     target="_blank"
